@@ -1,0 +1,36 @@
+#playstubruOnPoly
+- alias: StuBruOnPoly
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+  - platform: state
+    entity_id: input_boolean.playstubrupoly
+    from: 'off'
+    to: 'on'
+  action:
+  - service: media_player.volume_set
+    data:
+     entity_id:  media_player.poly
+     volume_level: 0.10
+  - service: media_player.play_media
+    data:
+     entity_id: media_player.poly
+     media_content_id: http://icecast.vrtcdn.be/stubru-high.mp3
+     media_content_type: audio/mp3
+  - delay: '00:00:03'
+  - service: media_player.media_play
+    entity_id: media_player.poly
+
+#playstubruOffPoly
+- alias: StuBruOffPoly
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+  - platform: state
+    entity_id: input_boolean.playstubrupoly
+    from: 'on'
+    to: 'off'
+  action:
+  - service: media_player.turn_off
+    data:
+     entity_id: media_player.poly

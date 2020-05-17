@@ -1,0 +1,40 @@
+- alias: "WakeupWeekdays"
+  initial_state: 'on'
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.wakeup_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+  - condition: state
+    entity_id: input_boolean.wakeup_enabled
+    state: 'on'
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.wakeup_weekend
+      state: 'on'
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+  action:
+  - service: light.turn_on
+    entity_id: 
+    - light.polylicht
+    - light.huiskamer_raam
+    - light.huiskamer_kast
+    - light.huiskamer_hoek
+    - light.keuken_aanrecht
+    - light.kamertimlicht
+    - light.kamerhildelicht
+    data:
+        transition: 600
+        brightness: 220
+#        kelvin: 2700
+  - service: input_boolean.turn_on
+    data:
+     entity_id:
+     - input_boolean.playstubruhuiskamer
+#     - input_boolean.playstubrupoly

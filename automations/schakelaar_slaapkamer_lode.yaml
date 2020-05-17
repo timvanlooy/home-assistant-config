@@ -1,0 +1,89 @@
+- alias: kamerlodelicht_on
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamerlodedimmer
+        event: 1002
+  action:
+  - service: light.turn_on
+    entity_id:  light.kamerlodelicht
+#######
+- alias: kamerlodelicht_off
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamerlodedimmer
+        event: 2002
+  action:
+  - service: light.turn_off
+    entity_id:  light.kamerlodelicht
+#######
+- alias: kamerlodelicht_dim_up_hold
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamerlodedimmer
+        event: 1001
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.kamerlodelicht
+        transition: '5'
+        brightness: >
+         {% set n = states.light.kamerlodelicht.attributes.brightness + 20 %}
+         {% if n < 255 %}
+           255
+         {% else %}
+           {{ n }}
+         {% endif %}
+#######
+- alias: kamerlodelicht_dim_down_hold
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamerlodedimmer
+        event: 2001
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.kamerlodelicht
+        transition: '5'
+        brightness: >
+         {% set n = states.light.kamerlodelicht.attributes.brightness - 20 %}
+         {% if n > 1 %}
+           1
+         {% else %}
+           {{ n }}
+         {% endif %}
+#######
+- alias: kamerlodelicht_dim_stop_hold
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamerlodedimmer
+        event: 1003
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamerlodedimmer
+        event: 2003
+  action:         
+    - service: light.turn_on
+      data_template:
+        entity_id: light.kamerlodelicht
+        brightness: '{{ states.light.kamerlodelicht.attributes.brightness }}'

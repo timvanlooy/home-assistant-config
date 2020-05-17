@@ -1,0 +1,56 @@
+- alias: Stop Streaming Radio
+  trigger:
+      - platform: state
+#        entity_id: input_boolean.webradio_select
+#        to: "off"
+        entity_id: input_select.webradio_preset
+        to: "geen"
+  action:
+        service: media_player.turn_off
+        data_template:
+          entity_id: >
+            {% if is_state("input_select.webradio_output", "Huiskamer") %}
+              media_player.huiskamer
+            {%-elif is_state("input_select.webradio_output", "Poly") %}
+              media_player.poly
+            {% else %}
+              geen
+            {% endif %}
+
+- alias: Stream Radio - Template
+  trigger:
+      - platform: state
+#        entity_id: input_boolean.webradio_select
+#        to: "on"
+        entity_id: input_select.webradio_output
+  action:
+      - service: media_player.play_media
+        data_template:
+          entity_id: >
+            {% if is_state("input_select.webradio_output", "Huiskamer") %}
+            media_player.huiskamer
+            {%-elif is_state("input_select.webradio_output", "Poly") %}
+            media_player.poly
+            {% else %}
+              none
+            {% endif %}
+          media_content_id: >
+            {% if is_state("input_select.webradio_preset", "StuBru") %}
+            http://icecast.vrtcdn.be/stubru-high.mp3
+            {%-elif is_state("input_select.webradio_preset", "Radio1") %}
+            http://icecast.vrtcdn.be/radio1-high.mp3 
+            {% else %}
+              none
+            {% endif %}
+          media_content_type: 'music'
+      - delay: '00:00:03'
+      - service: media_player.media_play
+        data_template:
+          entity_id: >
+            {% if is_state("input_select.webradio_output", "Huiskamer") %}
+              media_player.huiskamer
+            {%-elif is_state("input_select.webradio_output", "Poly") %}
+              media_player.poly
+            {% else %}
+              geen
+            {% endif %}

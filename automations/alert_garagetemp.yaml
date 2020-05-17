@@ -1,0 +1,13 @@
+- alias: 'GarageOnderNul'
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.temp_garage_temp
+    below: 1
+#    above: 7
+    for: 
+      minutes: 1
+  action:
+  - service: notify.mobile_app_nokia_8_1
+    data:
+     message: "De temperatuur in de garage is gedaald naar {{ states('sensor.temp_garage_temp') }}°C"
+#     message: "De temperatuur in de garage is gedaald naar onder 1°C"

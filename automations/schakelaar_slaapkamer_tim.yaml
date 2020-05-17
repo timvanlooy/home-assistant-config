@@ -1,0 +1,89 @@
+- alias: kamertimlicht_on
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamertimdimmer
+        event: 1002
+  action:
+  - service: light.turn_on
+    entity_id:  light.kamertimlicht
+#######
+- alias: kamertimlicht_off
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamertimdimmer
+        event: 2002
+  action:
+  - service: light.turn_off
+    entity_id:  light.kamertimlicht
+#######
+- alias: kamertimlicht_dim_up_hold
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamertimdimmer
+        event: 1001
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.kamertimlicht
+#        transition: '5'
+        brightness: >
+         {% set suggested = states.light.kamertimlicht.attributes.brightness|int + 80 %}
+         {% if suggested < 255 %}
+          {{ suggested }}
+         {% else %}
+          255
+         {% endif %}
+#######
+- alias: kamertimlicht_dim_down_hold
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamertimdimmer
+        event: 2001
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.kamertimlicht
+#        transition: '5'
+        brightness: >
+         {% set suggested = states.light.kamertimlicht.attributes.brightness|int - 80 %}
+         {% if suggested > 15 %}
+          {{ suggested }}
+         {% else %}
+          15
+         {% endif %}
+#######
+- alias: kamertimlicht_dim_stop_hold
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamertimdimmer
+        event: 1003
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: kamertimdimmer
+        event: 2003
+  action:         
+    - service: light.turn_on
+      data_template:
+        entity_id: light.kamertimlicht
+        brightness: '{{ states.light.kamertimlicht.attributes.brightness }}'

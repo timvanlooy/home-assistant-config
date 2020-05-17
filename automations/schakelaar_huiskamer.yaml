@@ -1,0 +1,33 @@
+- alias: HuiskamerDimmerAan
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: huiskamerdimmer
+        event: 1002
+  action:
+  - service: light.turn_on
+    data:
+     entity_id:
+     - light.huiskamer_raam
+     - light.huiskamer_kast
+     - light.huiskamer_hoek
+     - light.keuken_aanrecht
+     
+- alias: HuiskamerDimmerUit
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: huiskamerdimmer
+        event: 2002
+  action:
+  - service: light.turn_off
+    data:
+     entity_id:
+     - light.huiskamer_raam
+     - light.huiskamer_kast
+     - light.huiskamer_hoek
+     - light.keuken_aanrecht

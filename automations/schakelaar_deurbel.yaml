@@ -1,0 +1,12 @@
+- alias: Deurbel
+#  hide_entity: false
+  initial_state: 'on'
+  trigger:  
+  - platform: state
+    entity_id: binary_sensor.deurbel
+    to: 'on'
+  action:
+  - service: script.turn_on
+    data:
+     entity_id:
+     - script.doorbell

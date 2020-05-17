@@ -1,0 +1,47 @@
+#autocheck op basis van locatie ----------------------------------------------
+- alias: WindowStatus
+  initial_state: 'on'
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.life360_tim, device_tracker.life360_hilde
+    event: leave
+    zone: zone.home
+  condition:
+    condition: or
+    conditions:
+     - condition: state
+       entity_id: binary_sensor.living_raam_opzij
+       state: 'on'
+     - condition: state
+       entity_id: binary_sensor.voordeur
+       state: 'on'
+     - condition: state
+       entity_id: binary_sensor.achterdeur
+       state: 'on'
+     - condition: state
+       entity_id: binary_sensor.toilet_raam
+       state: 'on'
+     - condition: state
+       entity_id: binary_sensor.poly_raam_rechts
+       state: 'on'
+     - condition: state
+       entity_id: binary_sensor.keuken_raam_opzij
+       state: 'on'
+     - condition: state
+       entity_id: binary_sensor.living_raam_vooraan_links
+       state: 'on'
+     - condition: state
+       entity_id: binary_sensor.living_raam_vooraan_rechts
+       state: 'on'
+     - condition: state
+       entity_id: binary_sensor.badkamer_raam
+       state: 'on'
+  action:
+     - service: notify.mobile_app_nokia_8_1
+       data_template:
+         message: "Raam/Deur staat nog open! -> {{ trigger.to_state.attributes.friendly_name }}"
+     - service: notify.mobile_app_sm_a750fn
+       data_template:
+         message: "Raam/Deur staat nog open! -> {{ trigger.to_state.attributes.friendly_name }}"
+         
+#end

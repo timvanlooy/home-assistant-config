@@ -1,0 +1,15 @@
+- id: '1582962140929'
+  alias: Turn on the lights on motion Poly
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.poly_motion
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - after: '23:00'
+    before: '5:00'
+    condition: time
+  action:
+  - data: {}
+    service: script.poly_nachtlicht

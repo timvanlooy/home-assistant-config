@@ -1,0 +1,149 @@
+- alias: polylicht_toggle
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 1002
+  action:
+  - service: light.toggle
+    entity_id:  light.polylicht
+#######
+- alias: polylicht_dim_up_step
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 2002
+  action:
+  - service: light.turn_on
+    data_template:
+      entity_id: light.polylicht
+      transition: '1'
+      brightness: >
+       {% if not state_attr('light.polylicht', 'brightness') == None %}
+       {% set n = state_attr('light.polylicht', 'brightness') + 25 %} 
+       {% if n > 255 %}
+         255
+       {% else %}
+         {{ n }}
+       {% endif %}
+       {% else %} 
+       25 
+       {% endif %}
+#######
+- alias: polylicht_dim_down_step
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 3002
+  action:
+  - service: light.turn_on
+    data_template:
+      entity_id: light.polylicht
+      transition: '1'
+      brightness: >
+       {% if not state_attr('light.polylicht', 'brightness') == None %}
+       {% set n = state_attr('light.polylicht', 'brightness') - 25 %} 
+       {% if n > 255 %}
+         255
+       {% else %}
+         {{ n }}
+       {% endif %}
+       {% else %} 
+       0 
+       {% endif %}
+#######
+- alias: polylicht_dim_up_hold
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 2001
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.polylicht
+        transition: '5'
+        brightness: >
+         {% set n = states.light.polylicht.attributes.brightness + 20 %}
+         {% if n < 255 %}
+           255
+         {% else %}
+           {{ n }}
+         {% endif %}
+#######
+- alias: polylicht_dim_down_hold
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 3001
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.polylicht
+        transition: '5'
+        brightness: >
+         {% set n = states.light.polylicht.attributes.brightness - 20 %}
+         {% if n > 1 %}
+           1
+         {% else %}
+           {{ n }}
+         {% endif %}
+#######
+- alias: polylicht_dim_stop_hold
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 2003
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 3003
+  action:         
+    - service: light.turn_on
+      data_template:
+        entity_id: light.polylicht
+        brightness: '{{ states.light.polylicht.attributes.brightness }}'
+#######
+- alias: polyluidspreker_toggle
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 4002
+  action:
+  - service: switch.toggle
+    entity_id:  switch.luidsprekerpoly
+#######
+- alias: polystubru_toggle
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: remotecontrol
+        event: 5002
+  action:
+  - service: input_boolean.toggle
+    data:
+     entity_id:
+     - input_boolean.playstubrupoly
