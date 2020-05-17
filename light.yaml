@@ -1,0 +1,46 @@
+- platform: group
+  name: LivingLichten
+  entities:
+    - light.huiskamer_kast
+    - light.huiskamer_raam
+    - light.huiskamer_hoek
+    
+- platform: group
+  name: BenedenLichten
+  entities:
+    - light.huiskamer_kast
+    - light.huiskamer_raam
+    - light.huiskamer_hoek
+    - light.keuken_aanrecht
+    
+- platform: group
+  name: BuitenLichten
+  entities:
+    - light.garage_girlandes
+    - light.garage_tuinlicht
+    
+- platform: group
+  name: KinderKamerLichten
+  entities:
+  - light.kamerlodelicht
+  - light.kamermarielicht
+  
+- platform: group
+  name: SlaapkamerLichten
+  entities:
+  - light.kamertimlicht
+  - light.kamerhildelicht
+  
+- platform: switch
+  name: keuken_aanrecht
+  entity_id: switch.keuken_aanrecht
+  
+- platform: switch
+  name: garage_tuinlicht
+  entity_id: switch.garage_tuinlicht
+  
+- platform: switch
+  name: garage_girlandes
+  entity_id: switch.garage_girlandes
+  
+#end

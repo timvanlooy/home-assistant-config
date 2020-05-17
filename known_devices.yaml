@@ -1,0 +1,16 @@
+
+life360_tim:
+  hide_if_away: false
+  icon:
+  mac:
+  name: life360 tim
+  picture: ***
+  track: true
+
+life360_hilde:
+  hide_if_away: false
+  icon:
+  mac:
+  name: life360 hilde
+  picture: ***
+  track: true

@@ -1,0 +1,5 @@
+auth_providers:
+  - type: homeassistant
+whitelist_external_dirs:
+  - /config/snapshots/
+customize: !include customize.yaml

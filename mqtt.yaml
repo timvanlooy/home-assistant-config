@@ -1,0 +1,4 @@
+broker: 192.168.66.17
+port: 1883
+username: !secret tvl_user2
+password: !secret tvl_pswd2

@@ -1,0 +1,11 @@
+webradio_preset:
+  options:
+    - StuBru
+    - Radio1
+    - geen
+    
+webradio_output:
+  options:
+    - Huiskamer
+    - Poly
+    - geen

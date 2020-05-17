@@ -1,0 +1,33 @@
+- platform: waze_travel_time
+  origin: zone.home
+  destination: zone.openschool
+  region: 'EU'
+
+- platform: sma
+  host: 192.168.66.26
+  password: !secret tvl_pswd3
+  sensors:
+    pv_power:
+    daily_yield:
+    total_yield:
+    voltage_l1:
+    status:
+
+- platform: systemmonitor
+  resources: 
+  - type: disk_free
+    arg: /
+  - type: memory_use_percent
+  - type: processor_use
+
+- platform: time_date
+  display_options:
+    - 'time'
+    
+- platform: buienradar
+  monitored_conditions:
+    - humidity
+    - temperature
+    - windspeed
+    - windforce
+    - pressure

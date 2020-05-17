@@ -1,0 +1,120 @@
+wake_up:
+  alias: Wake Up
+  description: Turns on the bedroom lights and then the living room lights after a
+    delay
+  sequence:
+  - alias: Bedroom lights on
+    service: light.turn_on
+    data:
+      entity_id: light.polylicht
+      brightness: 100
+  - delay:
+      minutes: 1
+  - alias: Living room lights off
+    service: light.turn_off
+    data:
+      entity_id: light.polylicht
+camera_snapshot:
+  alias: Camera Snapshot
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.oprit1
+      filename: /config/snapshots/voordeursnapshot1.jpg
+  - service: camera.snapshot
+    data:
+      entity_id: camera.oprit2
+      filename: /config/snapshots/voordeursnapshot2.jpg
+  - service: camera.snapshot
+    data:
+      entity_id: camera.roofcam
+      filename: /config/snapshots/roofcam.jpg
+  - service: camera.snapshot
+    data:
+      entity_id: camera.garagecam
+      filename: /config/snapshots/garagecam.jpg
+  - delay:
+      seconds: 2
+  - service: notify.email
+    data:
+      title: Camerabeelden GS16
+      message: Camerabeelden GS16
+      data:
+        images:
+        - /config/snapshots/voordeursnapshot1.jpg
+        - /config/snapshots/voordeursnapshot2.jpg
+        - /config/snapshots/roofcam.jpg
+        - /config/snapshots/garagecam.jpg
+doorbell:
+  alias: Doorbell
+  description: Ring doorbell
+  sequence:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.doorbell
+  - delay:
+      seconds: 1
+  - service: switch.turn_off
+    data:
+      entity_id: switch.doorbell
+  - service: notify.mobile_app_nokia_8_1
+    data:
+      message: Er heeft iemand aangebeld!
+  - service: notify.mobile_app_sm_a750fn
+    data:
+      message: Er heeft iemand aangebeld!
+  - condition: template
+    value_template: '{{ states.device_tracker.life360_tim.state != ''home'' }}'
+  - condition: template
+    value_template: '{{ states.device_tracker.life360_hilde.state != ''home'' }}'
+  - service: camera.snapshot
+    data:
+      entity_id: camera.oprit1
+      filename: /config/snapshots/voordeursnapshot1.jpg
+  - service: camera.snapshot
+    data:
+      entity_id: camera.oprit2
+      filename: /config/snapshots/voordeursnapshot2.jpg
+  - service: notify.email
+    data:
+      title: Er heeft iemand aangebeld!
+      message: Er heeft iemand aangebeld!
+      data:
+        images:
+        - /config/snapshots/voordeursnapshot1.jpg
+        - /config/snapshots/voordeursnapshot2.jpg
+yeelightflashred:
+  alias: YeelightFlashRed
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: light.yeelight
+      brightness: 150
+      effect: Whatsapp
+force:
+  alias: Force
+  sequence:
+  - data:
+      entity_id: media_player.poly
+      language: en-us
+      message: May the Force be with you.
+    service: tts.google_translate_say
+  - device_id: 6a83869f14404240bc057d03b029cdad
+    domain: light
+    entity_id: light.polylicht
+    type: brightness_increase
+poly_nachtlicht:
+  alias: Poly Nacht
+  description: Poly licht nacht aan voor 5 min
+  sequence:
+  - alias: PolyLightOn
+    service: light.turn_on
+    data:
+      entity_id: light.polylicht
+      brightness: 50
+  - delay:
+      minutes: 3
+  - alias: PolyLightOff
+    service: light.turn_off
+    data:
+      entity_id: light.polylicht

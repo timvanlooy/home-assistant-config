@@ -1,0 +1,29 @@
+playstubrupoly:
+  name: "Play StuBru Poly"
+  initial: off
+  icon: mdi:music-circle-outline
+  
+playstubruhuiskamer:
+  name: "Play StuBru Huiskamer"
+  initial: off
+  icon: mdi:music-circle-outline
+  
+wakeup_enabled:
+  name: "Wake-up lights"
+  initial: on
+  icon: mdi:theme-light-dark
+  
+wakeup_weekend:
+  name: "Wake-up on weekends"
+  initial: off
+  icon: mdi:calendar-blank
+  
+webradio_select:
+  name: "Webradio button"
+  initial: off
+  icon: mdi:music-circle-outline
+  
+test:
+  name: "test button"
+  initial: off
+  icon: mdi:test-tube

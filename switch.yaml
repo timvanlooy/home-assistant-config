@@ -1,0 +1,32 @@
+- platform: mqtt
+  name: 'Keuken_Aanrecht'
+  state_topic: "stat/sonoff03/POWER"
+  command_topic: "cmnd/sonoff03/POWER"
+  availability_topic: "tele/sonoff03/LWT"
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  optimistic: false
+  qos: 1
+  retain: false
+  
+#  - platform: mqtt
+#    name: 'LuidsprekerPoly'
+#    state_topic: "stat/sonoff01/POWER"
+#    command_topic: "cmnd/sonoff01/POWER"
+#    availability_topic: "tele/sonoff01/LWT"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    optimistic: false
+#    qos: 1
+#    retain: false
+#    icon: mdi:speaker
+
+#  - platform: broadlink
+#    host: 192.168.66.53
+#    mac: 'b4:43:0d:11:e4:d6'
+#    type: sp2
+#    friendly_name: 'ikeahub'
