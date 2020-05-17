@@ -1,0 +1,34 @@
+#sonoffknop01 killswitch op kelderdeur alles valt uit -----------------------
+
+- alias: sonoffknop01actie
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.sonoffknop01
+    from: 'off'
+    to: 'on'
+  action:
+  - service: switch.turn_off
+    data:
+     entity_id: 
+     - switch.luidsprekerpoly
+     - switch.doorbell
+  - service: light.turn_off
+    data:
+     entity_id:
+     - light.huiskamer_raam
+     - light.huiskamer_kast
+     - light.huiskamer_hoek
+     - light.keuken_aanrecht
+     - light.polylicht
+     - light.kamerlodelicht
+     - light.kamermarielicht
+     - light.kamertimlicht
+     - light.kamerhildelicht
+     - light.yeelight
+  - service: input_boolean.turn_off
+    data:
+     entity_id:
+     - input_boolean.playstubruhuiskamer
+     - input_boolean.playstubrupoly

@@ -1,0 +1,28 @@
+homeassistant: !include homeassistant.yaml
+group: !include groups.yaml
+automation dir: !include_dir_merge_list automations
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensor.yaml
+switch: !include switch.yaml
+light: !include light.yaml
+camera: !include camera.yaml
+binary_sensor: !include binary_sensor.yaml
+yeelight: !include yeelight.yaml
+input_boolean: !include input_boolean.yaml
+notify: !include notify.yaml
+life360: !include life360.yaml
+input_select: !include input_select.yaml
+recorder: !include recorder.yaml
+logger: !include logger.yaml
+mqtt: !include mqtt.yaml
+input_datetime: !include input_datetime.yaml
+timer: !include timer.yaml
+tts: !include tts.yaml
+#tradfri: !include tradfri.yaml
+default_config:
+python_script:
+cloud:
+cast:
+#end

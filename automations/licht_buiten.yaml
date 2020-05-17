@@ -1,0 +1,63 @@
+- alias: LichtenBuitenUitBijZonOp
+  initial_state: 'on'
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - service: switch.turn_off
+    entity_id:
+    - switch.garage_girlandes
+    - switch.garage_tuinlicht
+    
+- alias: GirlandesAan0650u
+  initial_state: 'off'
+  trigger:
+  - at: '06:50'
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: switch.turn_on
+    data:
+     entity_id:
+     - switch.garage_girlandes
+    
+- alias: LichtenBuitenAanBijZonOnder
+  initial_state: 'on'
+  trigger:
+  - event: sunset
+    platform: sun
+  condition: []
+  action:
+  - service: switch.turn_on
+    data:
+     entity_id:
+     - switch.garage_tuinlicht
+     - switch.garage_girlandes
+     
+- alias: GirlandesUit2359u
+  initial_state: 'on'
+  trigger:
+  - at: '23:59'
+    platform: time
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: device_tracker.life360_tim
+        state: 'home'
+      - condition: state
+        entity_id: device_tracker.life360_hilde
+        state: 'home'
+  action:
+  - service: switch.turn_off
+    data:
+     entity_id:
+     - switch.garage_girlandes

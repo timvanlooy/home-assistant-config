@@ -1,0 +1,16 @@
+switch.doorbell:
+    icon: mdi:bell-circle-outline
+light.keuken_aanrecht:
+     friendly_name: "Keuken Aanrecht"
+light.garage_tuinlicht:
+     friendly_name: "Garage Tuinlicht"
+light.garage_girlandes:
+     friendly_name: "Garage Girlandes"
+binary_sensor.gang_motion:
+     friendly_name: "Gang"
+binary_sensor.poly_motion:
+     friendly_name: "Poly"
+binary_sensor.keuken_motion:
+     friendly_name: "Keuken"
+binary_sensor.garage_motion:
+     friendly_name: "Garage"

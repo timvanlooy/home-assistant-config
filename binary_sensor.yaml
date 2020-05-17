@@ -1,0 +1,240 @@
+- platform: mqtt
+  name: 'Keuken Motion'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'E9FF5E' %}
+      {{'ON'}}
+    {% else %}
+      {{states('binary_sensor.keuken_motion') | upper}}
+    {% endif %}
+  off_delay: 3
+  device_class: Motion
+  qos: 1
+
+- platform: mqtt
+  name: 'Gang Motion'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'EA09FE' %}
+      {{'ON'}}
+    {% else %}
+      {{states('binary_sensor.gang_motion') | upper}}
+    {% endif %}
+  off_delay: 3
+  device_class: Motion
+  qos: 1
+  
+- platform: mqtt
+  name: 'Poly Motion'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'EA22FE' %}
+      {{'ON'}}
+    {% else %}
+      {{states('binary_sensor.poly_motion') | upper}}
+    {% endif %}
+  off_delay: 3
+  device_class: Motion
+  qos: 1
+
+- platform: mqtt
+  name: 'Garage Door'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'FA0F99' %}
+      {{'ON'}}
+    {% else %}
+      {{states('binary_sensor.garage_door') | upper}}
+    {% endif %}
+  off_delay: 3
+  device_class: Moving
+  qos: 1
+
+- platform: mqtt
+  name: 'Reserve'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '2C420A' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == '2C420E' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.reserve') | upper}}
+    {% endif %}
+  device_class: Door
+  qos: 1
+  
+- platform: mqtt
+  name: 'Voordeur'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'F6206E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == 'F62067' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.voordeur') | upper}}
+    {% endif %}
+  device_class: Door
+  qos: 1
+
+- platform: mqtt
+  name: 'Achterdeur'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'DD526E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == 'DD5267' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.achterdeur') | upper}}
+    {% endif %}
+  device_class: Door
+  qos: 1
+  
+- platform: mqtt
+  name: 'schakelsensor'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '8F2426' %}
+      {{'ON'}}
+    {% else %}
+      {{states('binary_sensor.schakelsensor') | upper}}
+    {% endif %}
+  off_delay: 1
+  device_class: Moving
+  qos: 1
+  
+- platform: mqtt
+  name: 'deurbel'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '4A3142' %}
+      {{'ON'}}
+    {% else %}
+      {{states('binary_sensor.deurbel') | upper}}
+    {% endif %}
+  off_delay: 1
+  device_class: Moving
+  qos: 1
+  
+- platform: mqtt
+  name: 'sonoffknop02'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'C90B82' %}
+      {{'ON'}}
+    {% else %}
+      {{states('binary_sensor.sonoffknop02') | upper}}
+    {% endif %}
+  off_delay: 1
+  device_class: Moving
+  qos: 1
+  
+- platform: mqtt
+  name: 'sonoffknop01'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '19B268' %}
+      {{'ON'}}
+    {% else %}
+      {{states('binary_sensor.sonoffknop01') | upper}}
+    {% endif %}
+  off_delay: 1
+  device_class: Moving
+  qos: 1
+
+- platform: mqtt
+  name: 'Toilet Raam'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '10891E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == '108917' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.toilet_raam') | upper}}
+    {% endif %}
+  device_class: Window
+  qos: 1
+  
+- platform: mqtt
+  name: 'Badkamer Raam'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '8B621E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == '8B6217' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.badkamer_raam') | upper}}
+    {% endif %}
+  device_class: Window
+  qos: 1
+  
+- platform: mqtt
+  name: 'Living Raam vooraan links'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'F72C1E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == 'F72C17' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.living_raam_vooraan_links') | upper}}
+    {% endif %}
+  device_class: Window
+  qos: 1
+  
+- platform: mqtt
+  name: 'Living Raam vooraan rechts'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == 'CAC26E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == 'CAC267' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.living_raam_vooraan_rechts') | upper}}
+    {% endif %}
+  device_class: Window
+  qos: 1
+  
+- platform: mqtt
+  name: 'Keuken Raam opzij'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '24AC1E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == '24AC17' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.keuken_raam_opzij') | upper}}
+    {% endif %}
+  device_class: Window
+  
+- platform: mqtt
+  name: 'Living Raam opzij'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '3E1A1E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == '3E1A17' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.living_raam_opzij') | upper}}
+    {% endif %}
+  device_class: Window
+  
+- platform: mqtt
+  name: 'Poly Raam rechts'
+  state_topic: "tele/sonoffrfbridge/RESULT"
+  value_template: >-
+    {% if value_json.RfReceived.Data == '2E1A1E' %}
+      {{'ON'}}
+    {% elif value_json.RfReceived.Data == '2E1A17' %}
+      {{'OFF'}}
+    {% else %}
+      {{states('binary_sensor.poly_raam_rechts') | upper}}
+    {% endif %}
+  device_class: Window

@@ -1,0 +1,98 @@
+#Binnenverlichting -----------------------------------------------------
+- alias: LichtenBinnenAan0605u
+  initial_state: 'off'
+  trigger:
+  - at: '6:05'
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: light.turn_on
+    data:
+     entity_id:
+     - light.huiskamer_raam
+     - light.huiskamer_kast
+     - light.huiskamer_hoek
+     - light.keuken_aanrecht
+  - service: media_player.play_media
+    data:
+     entity_id: media_player.huiskamer
+     media_content_id: http://icecast.vrtcdn.be/stubru-high.mp3
+     media_content_type: audio/mp3
+
+- alias: LichtenBinnenUit0815u
+  initial_state: 'on'
+  trigger:
+  - at: '8:15'
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: switch.turn_off
+    data:
+     entity_id:
+     - switch.luidsprekerpoly
+  - service: light.turn_off
+    data:
+     entity_id:
+     - light.huiskamer_raam
+     - light.huiskamer_kast
+     - light.huiskamer_hoek
+     - light.keuken_aanrecht
+     - light.polylicht
+     - light.kamermarielicht
+     - light.kamerlodelicht
+  - service: input_boolean.turn_off
+    data:
+     entity_id:
+     - input_boolean.playstubruhuiskamer
+     - input_boolean.playstubrupoly
+
+- alias: LichtenBinnenAanBijZonOnder
+  initial_state: 'on'
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: "-00:30:00"
+  condition: []
+  action:
+  - service: light.turn_on
+    entity_id:
+     - light.huiskamer_raam
+     - light.huiskamer_kast
+     - light.huiskamer_hoek
+     - light.keuken_aanrecht
+
+- alias: LichtenBinnenUit2300u
+  initial_state: 'on'
+  trigger:
+  - at: '23:00'
+    platform: time
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: device_tracker.life360_tim
+        state: 'home'
+      - condition: state
+        entity_id: device_tracker.life360_hilde
+        state: 'home'
+  action:
+  - service: light.turn_off
+    entity_id:
+     - light.huiskamer_raam
+     - light.huiskamer_kast
+     - light.huiskamer_hoek
+     - light.keuken_aanrecht

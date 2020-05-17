@@ -1,0 +1,14 @@
+- alias: sonoffknop02actie
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.sonoffknop02
+    from: 'off'
+    to: 'on'
+  action:
+  - service: light.toggle
+    data:
+     entity_id: 
+     - light.kamertimlicht
+     - light.kamerhildelicht

@@ -1,0 +1,27 @@
+- platform: foscam
+  ip: 192.168.66.30
+  port: 80
+  username: !secret tvl_user3
+  password: !secret tvl_pswd1
+  name: 'Oprit1'
+  
+- platform: foscam
+  ip: 192.168.66.31
+  port: 80
+  username: !secret tvl_user3
+  password: !secret tvl_pswd1
+  name: 'Oprit2'
+  
+- platform: generic
+  still_image_url: http://192.168.66.19/camera/cam.jpg
+  username: !secret tvl_user1
+  password: !secret tvl_pswd2
+  name: 'Roofcam'
+  
+#  - platform: generic
+#    still_image_url: http://192.168.66.15/camera/cam.jpg
+#    username: !secret tvl_user1
+#    password: !secret tvl_pswd2
+#    name: 'Garagecam'
+
+- platform: buienradar

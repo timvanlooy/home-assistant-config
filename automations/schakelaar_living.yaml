@@ -1,0 +1,20 @@
+- alias: Schakelsensor
+#  hide_entity: true
+  initial_state: 'on'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.schakelsensor
+    from: 'off'
+    to: 'on'
+  action:
+  - service: light.toggle
+    data:
+     entity_id:
+     - light.huiskamer_raam
+     - light.huiskamer_kast
+     - light.huiskamer_hoek
+     - light.keuken_aanrecht
+  - service: input_boolean.turn_off
+    data:
+     entity_id:
+     - input_boolean.playstubruhuiskamer
